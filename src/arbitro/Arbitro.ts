@@ -52,28 +52,29 @@ export default class Arbitro {
   // Check
   // Checkmate
   // Stalemate
-  isMovimentoValido(posicaoInicial: Posicao, posicaoDesejada: Posicao, tipo: TipoPeca, time: TipoTime, tabuleiroState: Peca[]) {
+  isMovimentoValido(posicaoInicial: Posicao, posicaoDesejada: Posicao, tipo: TipoPeca, time: TipoTime, tabuleiroState: Peca[], vezJogador: TipoTime) {
     let movimentoValido = false;
-    switch (tipo) {
-      case TipoPeca.PEAO:
-        movimentoValido = movimentoPeao(posicaoInicial, posicaoDesejada, time, tabuleiroState);
-        break;
-      case TipoPeca.TORRE:
-        movimentoValido = movimentoTorre(posicaoInicial, posicaoDesejada, time, tabuleiroState);
-        break;
-      case TipoPeca.BISPO:
-        movimentoValido = movimentoBispo(posicaoInicial, posicaoDesejada, time, tabuleiroState);
-        break;
-      case TipoPeca.CAVALO:
-        movimentoValido = movimentoCavalo(posicaoInicial, posicaoDesejada, time, tabuleiroState);
-        break;
-      case TipoPeca.RAINHA:
-        movimentoValido = movimentoRainha(posicaoInicial, posicaoDesejada, time, tabuleiroState);
-        break;
-      case TipoPeca.REI:
-        movimentoValido = movimentoRei(posicaoInicial, posicaoDesejada, time, tabuleiroState);
+    if (vezJogador === time) {
+      switch (tipo) {
+        case TipoPeca.PEAO:
+          movimentoValido = movimentoPeao(posicaoInicial, posicaoDesejada, time, tabuleiroState);
+          break;
+        case TipoPeca.TORRE:
+          movimentoValido = movimentoTorre(posicaoInicial, posicaoDesejada, time, tabuleiroState);
+          break;
+        case TipoPeca.BISPO:
+          movimentoValido = movimentoBispo(posicaoInicial, posicaoDesejada, time, tabuleiroState);
+          break;
+        case TipoPeca.CAVALO:
+          movimentoValido = movimentoCavalo(posicaoInicial, posicaoDesejada, time, tabuleiroState);
+          break;
+        case TipoPeca.RAINHA:
+          movimentoValido = movimentoRainha(posicaoInicial, posicaoDesejada, time, tabuleiroState);
+          break;
+        case TipoPeca.REI:
+          movimentoValido = movimentoRei(posicaoInicial, posicaoDesejada, time, tabuleiroState);
+      }
     }
-
     return movimentoValido;
   }
 }

@@ -20,6 +20,7 @@ export default function Tabuleiro() {
   const [promocaoPeao, setPromocaoPeao] = useState<Peca>();
   const [posicaoOrigem, setPosicaoOrigem] = useState<Posicao>({ x: -1, y: -1 });
   const [pecas, setPecas] = useState<Peca[]>(tabuleiroInicialState);
+  const [vezJogador, setVezJogador] = useState<TipoTime>(1);
   const tabuleiroRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const arbitro = new Arbitro();
@@ -91,28 +92,29 @@ export default function Tabuleiro() {
         Math.ceil((e.clientY - tabuleiroXadrez.offsetTop - 800) / TAMANHO_GRID)
       );
 
-      const currentPeca = pecas.find((p) =>
+      const pecaAtual = pecas.find((p) =>
         mesmaPosicao(p.posicao, posicaoOrigem)
       );
 
-      if (currentPeca) {
+      if (pecaAtual) {
         const movimentoValido = arbitro.isMovimentoValido(
           posicaoOrigem,
           { x, y },
-          currentPeca.tipo,
-          currentPeca.time,
-          pecas
+          pecaAtual.tipo,
+          pecaAtual.time,
+          pecas,
+          vezJogador
         );
 
         const enPassant = arbitro.enPassant(
           posicaoOrigem,
           { x, y },
-          currentPeca.tipo,
-          currentPeca.time,
+          pecaAtual.tipo,
+          pecaAtual.time,
           pecas
         );
 
-        const direcaoPeao = currentPeca.time === TipoTime.JOGADOR ? 1 : -1;
+        const direcaoPeao = pecaAtual.time === TipoTime.JOGADOR ? 1 : -1;
 
         if (enPassant) {
           const updatedPecas = pecas.reduce((resultados, peca) => {
@@ -163,6 +165,9 @@ export default function Tabuleiro() {
 
             return resultados;
           }, [] as Peca[]);
+
+          // Troca o jogador ativo
+          setVezJogador(vezJogador ? 0 : 1);
 
           setPecas(updatedPecas);
         } else {
