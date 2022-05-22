@@ -45,9 +45,29 @@ export default class Arbitro {
     return false;
   }
 
+  isReiEmPerigo(
+    posicaoDesejada: Posicao,
+    time: TipoTime,
+    tabuleiroState: Peca[]
+  ) {
+    let isEmPerigo: boolean = false;
+    const pecasOponente = tabuleiroState.filter(
+      (p) =>
+        p.time !== time
+    );
+    pecasOponente.forEach((p) => {
+      if (!(p.tipo === TipoPeca.REI)) {
+        if (
+          this.isMovimentoValido(p.posicao, posicaoDesejada, p.tipo, p.time, tabuleiroState)
+        ) {
+          isEmPerigo = true;
+        }
+      }
+    });
+    return isEmPerigo;
+  }
+
   // TODO:
-  // Promoção de peões
-  // Prevenir que o rei se mova para uma casa em que possa ser consumido
   // Castling
   // Check
   // Checkmate
@@ -71,7 +91,7 @@ export default class Arbitro {
         movimentoValido = movimentoRainha(posicaoInicial, posicaoDesejada, time, tabuleiroState);
         break;
       case TipoPeca.REI:
-        movimentoValido = movimentoRei(posicaoInicial, posicaoDesejada, time, tabuleiroState);
+        movimentoValido = (movimentoRei(posicaoInicial, posicaoDesejada, time, tabuleiroState) && !(this.isReiEmPerigo(posicaoDesejada, time, tabuleiroState)));
     }
 
     return movimentoValido;
