@@ -45,32 +45,8 @@ export default class Arbitro {
     return false;
   }
 
-  isReiEmPerigo(
-    posicaoDesejada: Posicao,
-    time: TipoTime,
-    tabuleiroState: Peca[]
-  ) {
-    let isEmPerigo: boolean = false;
-    const pecasOponente = tabuleiroState.filter(
-      (p) =>
-        p.time !== time
-    );
-    pecasOponente.forEach((p) => {
-      if (!(p.tipo === TipoPeca.REI)) {
-        if (
-          this.isMovimentoValido(p.posicao, posicaoDesejada, p.tipo, p.time, tabuleiroState, this.retornaTimeOponente(p.time))
-        ) {
-          isEmPerigo = true;
-        }
-      }
-    });
-    return isEmPerigo;
-  }
-
   // TODO:
   // Castling
-  // Check
-  // Checkmate
   // Stalemate
   isMovimentoValido(posicaoInicial: Posicao, posicaoDesejada: Posicao, tipo: TipoPeca, time: TipoTime, tabuleiroState: Peca[], vezJogador: TipoTime) {
     let movimentoValido = false;
@@ -92,13 +68,9 @@ export default class Arbitro {
           movimentoValido = movimentoRainha(posicaoInicial, posicaoDesejada, time, tabuleiroState);
           break;
         case TipoPeca.REI:
-          movimentoValido = (movimentoRei(posicaoInicial, posicaoDesejada, time, tabuleiroState) && !(this.isReiEmPerigo(posicaoDesejada, time, tabuleiroState)));
+          movimentoValido = movimentoRei(posicaoInicial, posicaoDesejada, time, tabuleiroState);
       }
     }
     return movimentoValido;
-  }
-
-  private retornaTimeOponente(time: TipoTime): TipoTime {
-    return time === 1 ? 0 : 1;
   }
 }

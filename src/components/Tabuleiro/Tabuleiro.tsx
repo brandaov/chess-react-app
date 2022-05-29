@@ -21,6 +21,8 @@ export default function Tabuleiro() {
   const [posicaoOrigem, setPosicaoOrigem] = useState<Posicao>({ x: -1, y: -1 });
   const [pecas, setPecas] = useState<Peca[]>(tabuleiroInicialState);
   const [vezJogador, setVezJogador] = useState<TipoTime>(1);
+  // const [check, setCheck] = useState<boolean>(false);
+  // const [checkmate, setCheckmate] = useState<boolean>(false);
   const tabuleiroRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const arbitro = new Arbitro();
@@ -145,13 +147,13 @@ export default function Tabuleiro() {
               peca.enPassant =
                 Math.abs(posicaoOrigem.y - y) === 2 &&
                 peca.tipo === TipoPeca.PEAO;
-                
+
               peca.posicao.x = x;
               peca.posicao.y = y;
 
               let promotionRow = (peca.time === TipoTime.JOGADOR) ? 7 : 0;
 
-              if(y === promotionRow && peca.tipo === TipoPeca.PEAO) {
+              if (y === promotionRow && peca.tipo === TipoPeca.PEAO) {
                 modalRef.current?.classList.remove("hidden");
                 setPromocaoPeao(peca);
               }
@@ -166,10 +168,35 @@ export default function Tabuleiro() {
             return resultados;
           }, [] as Peca[]);
 
-          // Troca o jogador ativo
-          setVezJogador(vezJogador ? 0 : 1);
+          const reiEmPerigo = checaReiEmPerigo(updatedPecas, vezJogador);
 
-          setPecas(updatedPecas);
+          if (!reiEmPerigo) {
+            console.log('Trocando a vez do jogador');
+            // Trocando a vez do jogador
+            const vez = (vezJogador ? 0 : 1);
+            setVezJogador(vez);
+            setPecas(updatedPecas);
+            const isCheck = checaReiEmPerigo(updatedPecas, vez);
+            const isCheckmate = (isCheck && !existeMovimentoParaProtegerORei(updatedPecas, vez))
+            if (isCheckmate) {
+              // setCheckmate(true);
+              alert('Checkmate!');
+            } else if (isCheck) {
+              // setCheck(true);
+              alert('Check!');
+            } else {
+              // setCheck(false);
+            }
+          } else {
+            // reseta a posição da peça
+            pecaAtual.posicao = posicaoOrigem;
+            pecaAtiva.style.position = "relative";
+            pecaAtiva.style.removeProperty("top");
+            pecaAtiva.style.removeProperty("left");
+          }
+          // console.log('Check: ', check);
+          // console.log('Checkmate: ', checkmate);
+
         } else {
           // reseta a posição da peça
           pecaAtiva.style.position = "relative";
@@ -181,17 +208,55 @@ export default function Tabuleiro() {
     }
   }
 
+  function existeMovimentoParaProtegerORei(pecas: Peca[], time: TipoTime): boolean {
+    let pecasDefensoras = [];
+    const rei = pecas.find(
+      (p) => (p.time === time && p.tipo === TipoPeca.REI)
+    ) as Peca;
+
+    const pecasJogador = pecas.filter(
+      (p) =>
+        p.time === time
+    );
+    
+    // LÓGICA CHECKMATE:
+    // if for every move for player X (ignoring rules about king threats), 
+    // player Y can capture player X's king next turn, then player X is in checkmate
+
+    return rei ? true : false;
+  }
+
+  function checaReiEmPerigo(pecas: Peca[], time: TipoTime): boolean {
+    let pecasPerigosas = [];
+
+    const rei = pecas.find(
+      (p) => (p.time === time && p.tipo === TipoPeca.REI)
+    ) as Peca;
+    const pecasOponente = pecas.filter(
+      (p) =>
+        p.time !== time
+    );
+    const pecaPerigosa = pecasOponente.find(
+      (p) => arbitro.isMovimentoValido(p.posicao, rei.posicao, p.tipo, p.time, pecas, p.time)
+    )
+    if (pecaPerigosa) {
+      pecasPerigosas.push(pecaPerigosa);
+    }
+
+    return pecasPerigosas.length ? true : false;
+  }
+
   function promoverPeao(tipoPeca: TipoPeca) {
-    if(promocaoPeao === undefined) {
+    if (promocaoPeao === undefined) {
       return;
     }
 
     const updatedPecas = pecas.reduce((resultados, peca) => {
-      if(mesmaPosicao(peca.posicao, promocaoPeao.posicao)) {
+      if (mesmaPosicao(peca.posicao, promocaoPeao.posicao)) {
         peca.tipo = tipoPeca;
         const tipoTime = (peca.time === TipoTime.JOGADOR) ? "branco" : "preto";
         let imagem = "";
-        switch(tipoPeca) {
+        switch (tipoPeca) {
           case TipoPeca.TORRE: {
             imagem = "torre";
             break;
@@ -242,10 +307,10 @@ export default function Tabuleiro() {
     <>
       <div id="promocao-peao-modal" className="hidden" ref={modalRef}>
         <div className="modal-body">
-          <img onClick={() => promoverPeao(TipoPeca.TORRE)} src={`/assets/images/torre_${tipoTimePromocao()}.png`}/>
-          <img onClick={() => promoverPeao(TipoPeca.BISPO)} src={`/assets/images/bispo_${tipoTimePromocao()}.png`}/>
-          <img onClick={() => promoverPeao(TipoPeca.CAVALO)} src={`/assets/images/cavalo_${tipoTimePromocao()}.png`}/>
-          <img onClick={() => promoverPeao(TipoPeca.RAINHA)} src={`/assets/images/rainha_${tipoTimePromocao()}.png`}/>
+          <img onClick={() => promoverPeao(TipoPeca.TORRE)} src={`/assets/images/torre_${tipoTimePromocao()}.png`} />
+          <img onClick={() => promoverPeao(TipoPeca.BISPO)} src={`/assets/images/bispo_${tipoTimePromocao()}.png`} />
+          <img onClick={() => promoverPeao(TipoPeca.CAVALO)} src={`/assets/images/cavalo_${tipoTimePromocao()}.png`} />
+          <img onClick={() => promoverPeao(TipoPeca.RAINHA)} src={`/assets/images/rainha_${tipoTimePromocao()}.png`} />
         </div>
       </div>
       <div
