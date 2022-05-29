@@ -5,7 +5,7 @@ export const movimentoPeao = (posicaoInicial: Posicao, posicaoDesejada: Posicao,
     const specialRow = time === TipoTime.JOGADOR ? 1 : 6;
     const direcaoPeao = time === TipoTime.JOGADOR ? 1 : -1;
 
-    //MOVEMENT LOGIC
+    // LÓGICA DE MOVIMENTOS
     if (
       posicaoInicial.x === posicaoDesejada.x &&
       posicaoInicial.y === specialRow &&
@@ -28,12 +28,12 @@ export const movimentoPeao = (posicaoInicial: Posicao, posicaoDesejada: Posicao,
         return true;
       }
     }
-    //ATTACK LOGIC
+    // LÓGICA DE ATAQUE
     else if (
       posicaoDesejada.x - posicaoInicial.x === -1 &&
       posicaoDesejada.y - posicaoInicial.y === direcaoPeao
     ) {
-      //ATTACK IN UPPER OR BOTTOM LEFT CORNER
+      // ATAQUE NOS CANTOS SUPERIOR E INFERIOR DA ESQUERDA
       if (casaOcupadaPeloOponente(posicaoDesejada, tabuleiroState, time)) {
         return true;
       }
@@ -41,7 +41,7 @@ export const movimentoPeao = (posicaoInicial: Posicao, posicaoDesejada: Posicao,
       posicaoDesejada.x - posicaoInicial.x === 1 &&
       posicaoDesejada.y - posicaoInicial.y === direcaoPeao
     ) {
-      //ATTACK IN THE UPPER OR BOTTOM RIGHT CORNER
+      // ATAQUE NOS CANTOS SUPERIOR E INFERIOR DA DIREITA
       if (casaOcupadaPeloOponente(posicaoDesejada, tabuleiroState, time)) {
         return true;
       }
