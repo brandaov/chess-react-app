@@ -1,0 +1,79 @@
+#menu-container {
+  background-color: #A3866A;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  width: 400px;
+  justify-content: center;
+}
+
+#menu-container.hidden {
+  display: none;
+}
+
+#tabuleiro {
+  display: grid;
+  grid-template-columns: repeat(8, 100px);
+  grid-template-rows: repeat(8, 100px);
+  width: 800px;
+  height: 800px;
+  size: 80vh;
+}
+
+#tabuleiro.hidden {
+  display: none;
+}
+
+#tabuleiroTeste {
+  display: grid;
+  grid-template-columns: repeat(8, 100px);
+  grid-template-rows: repeat(8, 100px);
+  width: 800px;
+  height: 800px;
+  size: 80vh;
+}
+
+#tabuleiroTeste.hidden {
+  display: none;
+}
+
+.menu-buttons {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-self: center;
+}
+
+.menu-buttons button {
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  height: 25px;
+}
+
+.menu-buttons button:hover {
+  cursor: pointer;
+}
+
+.title-header {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.title-header text {
+  color: antiquewhite;
+  font-size: 60px;
+}
+
+.tabuleiro-background {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  background-color: #1a1a1a;
+}

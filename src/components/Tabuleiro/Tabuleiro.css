@@ -1,42 +1,42 @@
 #tabuleiroDeXadrez {
-    display: grid;
-    grid-template-columns: repeat(8, 100px);
-    grid-template-rows: repeat(8, 100px);
-    width: 800px;
-    height: 800px;
+  display: grid;
+  grid-template-columns: repeat(8, 100px);
+  grid-template-rows: repeat(8, 100px);
+  width: 800px;
+  height: 800px;
 }
 
 #promocao-peao-modal {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
 
 #promocao-peao-modal.hidden {
-    display: none;
+  display: none;
 }
 
-#promocao-peao-modal > .modal-body {
-    position: absolute;
-    top: calc(50% - 150px);
-    left: calc(50% - 400px);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    height: 300px;
-    width: 800px;
-    background-color: rgba(127, 127, 127, 0.8);
+#promocao-peao-modal>.modal-body {
+  position: absolute;
+  top: calc(50% - 150px);
+  left: calc(50% - 400px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 300px;
+  width: 800px;
+  background-color: rgba(127, 127, 127, 0.8);
 }
 
-#promocao-peao-modal > .modal-body > img {
-    height: 120px;
-    padding: 20px;
-    border-radius: 50%;
+#promocao-peao-modal>.modal-body>img {
+  height: 120px;
+  padding: 20px;
+  border-radius: 50%;
 }
 
-#promocao-peao-modal > .modal-body > img:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    cursor: pointer;
+#promocao-peao-modal>.modal-body>img:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
 }

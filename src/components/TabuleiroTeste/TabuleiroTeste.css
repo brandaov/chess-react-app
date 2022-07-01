@@ -1,0 +1,142 @@
+#tabuleiroDeXadrez {
+  display: grid;
+  grid-template-columns: repeat(8, 100px);
+  grid-template-rows: repeat(8, 100px);
+  width: 800px;
+  height: 800px;
+}
+
+#promocao-peao-modal {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+#promocao-peao-modal.hidden {
+  display: none;
+}
+
+#promocao-peao-modal>.modal-body {
+  position: absolute;
+  top: calc(50% - 150px);
+  left: calc(50% - 400px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 300px;
+  width: 800px;
+  background-color: rgba(127, 127, 127, 0.8);
+}
+
+#promocao-peao-modal>.modal-body>img {
+  height: 120px;
+  padding: 20px;
+  border-radius: 50%;
+}
+
+#promocao-peao-modal>.modal-body>img:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.teste-menu-buttons {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-self: flex-start;
+  position: absolute;
+  top: 200px;
+  left: 100px;
+  z-index: 5;
+}
+
+.teste-menu-buttons button {
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  height: 25px;
+}
+
+.teste-menu-buttons text {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  color: aliceblue;
+}
+
+.teste-menu-buttons button:hover {
+  cursor: pointer;
+}
+
+.dicas {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-self: flex-start;
+  position: absolute;
+  top: 500px;
+  left: 100px;
+  z-index: 5;
+}
+
+.dicas text {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  color: aliceblue;
+}
+
+.dicas button {
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  height: 25px;
+}
+
+.dicas button:hover {
+  cursor: pointer;
+}
+
+#dica-text {}
+
+#dica-text>text {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  color: aliceblue;
+}
+
+#dica-text.hidden {
+  display: none;
+}
+
+#alert-event {
+  position: absolute;
+  /* justify-self: center;
+  align-self: center; */
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-self: flex-start;
+  position: absolute;
+  top: 80px;
+  left: 100px;
+  z-index: 5;
+}
+
+#alert-event>text {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  font-size: 80px;
+  color: chartreuse;
+}
+
+#alert-event.hidden {
+  display: none;
+}

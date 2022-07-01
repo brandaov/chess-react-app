@@ -34,294 +34,595 @@ export interface Peca {
   enPassant?: boolean;
 }
 
+export const dica = [
+  'Movimente o peão na diagonal, capturando a peça inimiga',
+  'Primeiro movimente um dos peões, depois o peão ou bispo, e finalmente o peão ou bispo',
+  'Utilize somente a rainha para o checkmate'
+]
+export const desafio = [
+  'Movimento e captura de peão',
+  'Consuma as todas as peças pretas',
+  'Checkmate em 3 jogadas'
+]
+
+const peaoPreto = {
+  imagem: `assets/images/peao_preto.png`,
+  tipo: TipoPeca.PEAO,
+  time: TipoTime.OPONENTE,
+}
+
+const torrePreto = {
+  imagem: `assets/images/torre_preto.png`,
+  tipo: TipoPeca.TORRE,
+  time: TipoTime.OPONENTE,
+};
+
+const cavaloPreto = {
+  imagem: `assets/images/cavalo_preto.png`,
+  tipo: TipoPeca.CAVALO,
+  time: TipoTime.OPONENTE,
+};
+
+const bispoPreto = {
+  imagem: `assets/images/bispo_preto.png`,
+  tipo: TipoPeca.BISPO,
+  time: TipoTime.OPONENTE,
+};
+
+const peaoBranco = {
+  imagem: `assets/images/peao_branco.png`,
+  tipo: TipoPeca.PEAO,
+  time: TipoTime.JOGADOR,
+}
+
+const rainhaPreto = {
+  imagem: `assets/images/rainha_preto.png`,
+  tipo: TipoPeca.RAINHA,
+  time: TipoTime.OPONENTE,
+}
+
+const reiPreto = {
+  imagem: `assets/images/rei_preto.png`,
+  tipo: TipoPeca.REI,
+  time: TipoTime.OPONENTE,
+};
+
+const torreBranco = {
+  imagem: `assets/images/torre_branco.png`,
+  tipo: TipoPeca.TORRE,
+  time: TipoTime.JOGADOR,
+};
+
+const bispoBranco = {
+  imagem: `assets/images/bispo_branco.png`,
+  tipo: TipoPeca.BISPO,
+  time: TipoTime.JOGADOR,
+};
+
+const reiBranco = {
+  imagem: `assets/images/rei_branco.png`,
+  tipo: TipoPeca.REI,
+  time: TipoTime.JOGADOR,
+};
+
+const cavaloBranco = {
+  imagem: `assets/images/cavalo_branco.png`,
+  tipo: TipoPeca.CAVALO,
+  time: TipoTime.JOGADOR,
+};
+
+const rainhaBranco = {
+  imagem: `assets/images/rainha_branco.png`,
+  tipo: TipoPeca.RAINHA,
+  time: TipoTime.JOGADOR,
+};
+
 export const tabuleiroInicialState: Peca[] = [
   {
-    imagem: `assets/images/torre_preto.png`,
+    ...torrePreto,
     posicao: {
       x: 0,
       y: 7,
     },
-    tipo: TipoPeca.TORRE,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/cavalo_preto.png`,
+    ...cavaloPreto,
     posicao: {
       x: 1,
       y: 7,
     },
-    tipo: TipoPeca.CAVALO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/bispo_preto.png`,
+    ...bispoPreto,
     posicao: {
       x: 2,
       y: 7,
     },
-    tipo: TipoPeca.BISPO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/rainha_preto.png`,
+    ...rainhaPreto,
     posicao: {
       x: 3,
       y: 7,
     },
-    tipo: TipoPeca.RAINHA,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/rei_preto.png`,
+    ...reiPreto,
     posicao: {
       x: 4,
       y: 7,
     },
-    tipo: TipoPeca.REI,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/bispo_preto.png`,
+    ...bispoPreto,
     posicao: {
       x: 5,
       y: 7,
     },
-    tipo: TipoPeca.BISPO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/cavalo_preto.png`,
+    ...cavaloPreto,
     posicao: {
       x: 6,
       y: 7,
     },
-    tipo: TipoPeca.CAVALO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/torre_preto.png`,
+    ...torrePreto,
     posicao: {
       x: 7,
       y: 7,
     },
-    tipo: TipoPeca.TORRE,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/peao_preto.png`,
+    ...peaoPreto,
     posicao: {
       x: 0,
       y: 6,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/peao_preto.png`,
+    ...peaoPreto,
     posicao: {
       x: 1,
       y: 6,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/peao_preto.png`,
+    ...peaoPreto,
     posicao: {
       x: 2,
       y: 6,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/peao_preto.png`,
+    ...peaoPreto,
     posicao: {
       x: 3,
       y: 6,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/peao_preto.png`,
+    ...peaoPreto,
     posicao: {
       x: 4,
       y: 6,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/peao_preto.png`,
+    ...peaoPreto,
     posicao: {
       x: 5,
       y: 6,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/peao_preto.png`,
+    ...peaoPreto,
     posicao: {
       x: 6,
       y: 6,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.OPONENTE,
   },
   {
-    imagem: `assets/images/peao_preto.png`,
+    ...peaoPreto,
     posicao: {
       x: 7,
       y: 6,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.OPONENTE,
   },
 
   {
-    imagem: `assets/images/torre_branco.png`,
+    ...torreBranco,
     posicao: {
       x: 0,
       y: 0,
     },
-    tipo: TipoPeca.TORRE,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/cavalo_branco.png`,
+    ...cavaloBranco,
     posicao: {
       x: 1,
       y: 0,
     },
-    tipo: TipoPeca.CAVALO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/bispo_branco.png`,
+    ...bispoBranco,
     posicao: {
       x: 2,
       y: 0,
     },
-    tipo: TipoPeca.BISPO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/rainha_branco.png`,
+    ...rainhaBranco,
     posicao: {
       x: 3,
       y: 0,
     },
-    tipo: TipoPeca.RAINHA,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/rei_branco.png`,
+    ...reiBranco,
     posicao: {
       x: 4,
       y: 0,
     },
-    tipo: TipoPeca.REI,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/bispo_branco.png`,
+    ...bispoBranco,
     posicao: {
       x: 5,
       y: 0,
     },
-    tipo: TipoPeca.BISPO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/cavalo_branco.png`,
+    ...cavaloBranco,
     posicao: {
       x: 6,
       y: 0,
     },
-    tipo: TipoPeca.CAVALO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/torre_branco.png`,
+    ...torreBranco,
     posicao: {
       x: 7,
       y: 0,
     },
-    tipo: TipoPeca.TORRE,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/peao_branco.png`,
+    ...peaoBranco,
     posicao: {
       x: 0,
       y: 1,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/peao_branco.png`,
+    ...peaoBranco,
     posicao: {
       x: 1,
       y: 1,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/peao_branco.png`,
+    ...peaoBranco,
     posicao: {
       x: 2,
       y: 1,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/peao_branco.png`,
+    ...peaoBranco,
     posicao: {
       x: 3,
       y: 1,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/peao_branco.png`,
+    ...peaoBranco,
     posicao: {
       x: 4,
       y: 1,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/peao_branco.png`,
+    ...peaoBranco,
     posicao: {
       x: 5,
       y: 1,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/peao_branco.png`,
+    ...peaoBranco,
     posicao: {
       x: 6,
       y: 1,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.JOGADOR,
   },
   {
-    imagem: `assets/images/peao_branco.png`,
+    ...peaoBranco,
     posicao: {
       x: 7,
       y: 1,
     },
-    tipo: TipoPeca.PEAO,
-    time: TipoTime.JOGADOR,
   },
 ];
+
+interface Testes {
+  teste: Array<Peca[]>;
+  jogada: any;
+  jogadaOponente: any;
+}
+
+export const testeTabuleiroState: Testes = {
+  teste: [
+    [
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 4,
+          y: 3,
+        }
+      },
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 3,
+          y: 3,
+        }
+      },
+      {
+        ...cavaloPreto,
+        posicao: {
+          x: 4,
+          y: 4,
+        }
+      },
+    ],
+    [
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 2,
+          y: 3,
+        }
+      },
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 4,
+          y: 3,
+        }
+      },
+      {
+        ...peaoPreto,
+        posicao: {
+          x: 3,
+          y: 4,
+        }
+      },
+      {
+        ...torrePreto,
+        posicao: {
+          x: 7,
+          y: 4,
+        }
+      },
+      {
+        ...bispoBranco,
+        posicao: {
+          x: 6,
+          y: 1,
+        }
+      },
+      {
+        ...cavaloPreto,
+        posicao: {
+          x: 2,
+          y: 2,
+        }
+      },
+    ],
+    [
+      {
+        ...rainhaPreto,
+        posicao: {
+          x: 1,
+          y: 0,
+        },
+      },
+      {
+        ...reiPreto,
+        posicao: {
+          x: 3,
+          y: 7,
+        },
+      },
+      {
+        ...torrePreto,
+        posicao: {
+          x: 4,
+          y: 4,
+        },
+      },
+      {
+        ...peaoPreto,
+        posicao: {
+          x: 5,
+          y: 5,
+        }
+      },
+      {
+        ...peaoPreto,
+        posicao: {
+          x: 6,
+          y: 6,
+        }
+      },
+      {
+        ...peaoPreto,
+        posicao: {
+          x: 7,
+          y: 5,
+        }
+      },
+      {
+        ...peaoPreto,
+        posicao: {
+          x: 0,
+          y: 3,
+        }
+      },
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 0,
+          y: 2
+        }
+      },
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 3,
+          y: 4
+        }
+      },
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 5,
+          y: 4
+        }
+      },
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 6,
+          y: 5
+        }
+      },
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 7,
+          y: 1
+        }
+      },
+      {
+        ...reiBranco,
+        posicao: {
+          x: 3,
+          y: 5
+        }
+      },
+      {
+        ...rainhaBranco,
+        posicao: {
+          x: 3,
+          y: 1
+        }
+      },
+    ],
+  ],
+  jogada: [
+    [
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 4,
+          y: 4,
+        }
+      },
+    ],
+    [
+      {
+        ...peaoBranco,
+        posicao: {
+          x: 3,
+          y: 4,
+        }
+      },
+      [{
+        ...peaoBranco,
+        posicao: {
+          x: 3,
+          y: 4,
+        }
+      }, {
+        ...bispoBranco,
+        posicao: {
+          x: 3,
+          y: 4,
+        }
+      }],
+      [{
+        ...bispoBranco,
+        posicao: {
+          x: 3,
+          y: 4,
+        }
+      }, {
+        ...peaoBranco,
+        posicao: {
+          x: 3,
+          y: 4,
+        }
+      }],
+    ],
+    [
+      {
+        ...rainhaBranco,
+        posicao: {
+          x: 0,
+          y: 4
+        }
+      },
+      {
+        ...rainhaBranco,
+        posicao: {
+          x: 0,
+          y: 7
+        }
+      },
+      {
+        ...rainhaBranco,
+        posicao: {
+          x: 1,
+          y: 7
+        }
+      },
+    ]
+  ],
+  jogadaOponente: [
+    [],
+    [
+      {
+        ...cavaloPreto,
+        posicao: {
+          x: 3,
+          y: 4,
+        }
+      },
+      {
+        ...torrePreto,
+        posicao: {
+          x: 3,
+          y: 4,
+        }
+      },
+    ],
+    [
+      {
+        ...reiPreto,
+        posicao: {
+          x: 4,
+          y: 7,
+        },
+      },
+      {
+        ...rainhaPreto,
+        posicao: {
+          x: 1,
+          y: 7,
+        },
+      }
+    ]
+  ]
+};

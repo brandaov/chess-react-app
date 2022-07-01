@@ -1,10 +1,10 @@
 import './App.css';
-import Tabuleiro from './components/Tabuleiro/Tabuleiro';
+import Menu from './components/Menu/Menu';
 
 function App() {
   return (
     <div id="app">
-      <Tabuleiro/>
+      <Menu/>
     </div>
   );
 }
