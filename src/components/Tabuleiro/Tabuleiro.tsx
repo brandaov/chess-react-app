@@ -209,7 +209,7 @@ export default function Tabuleiro() {
   }
 
   function existeMovimentoParaProtegerORei(pecas: Peca[], time: TipoTime): boolean {
-    let pecasDefensoras = [];
+    let pecasDefensoras: Peca[] = [];
     const rei = pecas.find(
       (p) => (p.time === time && p.tipo === TipoPeca.REI)
     ) as Peca;
@@ -219,9 +219,11 @@ export default function Tabuleiro() {
         p.time === time
     );
     
-    // LÓGICA CHECKMATE:
+    // TODO: LÓGICA CHECKMATE:
     // if for every move for player X (ignoring rules about king threats), 
     // player Y can capture player X's king next turn, then player X is in checkmate
+    console.log(JSON.stringify(pecasDefensoras));
+    console.log(JSON.stringify(pecasJogador));
 
     return rei ? true : false;
   }
