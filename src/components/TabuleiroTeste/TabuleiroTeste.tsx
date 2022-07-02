@@ -26,6 +26,7 @@ export default function TabuleiroTeste() {
   const [numeroTeste, setNumeroTeste] = useState<number>(1);
   const [pontuacao, setPontuacao] = useState<number>(0);
   const [numeroJogada, setNumeroJogada] = useState<number>(1);
+  const [dicaUtilizada, setDicaUtilizada] = useState<boolean>(false);
   // const [check, setCheck] = useState<boolean>(false);
   // const [checkmate, setCheckmate] = useState<boolean>(false);
   const tabuleiroRef = useRef<HTMLDivElement>(null);
@@ -127,7 +128,7 @@ export default function TabuleiroTeste() {
         const direcaoPeao = pecaAtual.time === TipoTime.JOGADOR ? 1 : -1;
 
         if (enPassant) {
-          const updatedPecas = pecas.reduce((resultados, peca) => {
+          const pecasAtualizadas = pecas.reduce((resultados, peca) => {
             if (mesmaPosicao(peca.posicao, posicaoOrigem)) {
               peca.enPassant = false;
               peca.posicao.x = x;
@@ -145,11 +146,11 @@ export default function TabuleiroTeste() {
             return resultados;
           }, [] as Peca[]);
 
-          setPecas(updatedPecas);
+          setPecas(pecasAtualizadas);
         } else if (movimentoValido) {
           // Atualiza a posição da peça
           // Se uma peça for atacada, ela é removida
-          const updatedPecas = pecas.reduce((resultados, peca) => {
+          const pecasAtualizadas = pecas.reduce((resultados, peca) => {
             if (mesmaPosicao(peca.posicao, posicaoOrigem)) {
               // Movimento especial
               peca.enPassant =
@@ -176,15 +177,15 @@ export default function TabuleiroTeste() {
             return resultados;
           }, [] as Peca[]);
 
-          const reiEmPerigo = checaReiEmPerigo(updatedPecas, vezJogador);
+          const reiEmPerigo = checaSeReiEmPerigo(pecasAtualizadas, vezJogador);
 
           if (!reiEmPerigo) {
 
-            if (isMovimentoCorreto(updatedPecas)) {
+            if (isMovimentoCorreto(pecasAtualizadas)) {
               let vez = (vezJogador ? 0 : 1);
-              setPecas(updatedPecas);
-              const isCheck = checaReiEmPerigo(updatedPecas, vez);
-              const isCheckmate = (isCheck && !existeMovimentoParaProtegerORei(updatedPecas, vez))
+              setPecas(pecasAtualizadas);
+              const isCheck = checaSeReiEmPerigo(pecasAtualizadas, vez);
+              const isCheckmate = (isCheck && !existeMovimentoParaProtegerORei(pecasAtualizadas, vez))
               if (isCheckmate) {
                 // setCheckmate(true);
                 alert('Checkmate!');
@@ -223,7 +224,7 @@ export default function TabuleiroTeste() {
     }
   }
 
-  function isMovimentoCorreto(updatedPecas: Peca[]): boolean {
+  function isMovimentoCorreto(pecasAtualizadas: Peca[]): boolean {
     const jogadasPossiveis = testeTabuleiroState.jogada[numeroTeste - 1][numeroJogada - 1]
 
     let response = undefined;
@@ -236,7 +237,7 @@ export default function TabuleiroTeste() {
           ...jogada,
           enPassant: false
         }
-        response = updatedPecas.find(
+        response = pecasAtualizadas.find(
           (p) =>
           (
             p.imagem === pecaResposta.imagem
@@ -249,7 +250,7 @@ export default function TabuleiroTeste() {
         ...jogadasPossiveis,
         enPassant: false
       }
-      response = updatedPecas.find(
+      response = pecasAtualizadas.find(
         (p) =>
         (
           p.imagem === pecaResposta.imagem
@@ -271,7 +272,7 @@ export default function TabuleiroTeste() {
           && p.time === pecaJogada.time
         )
       );
-      const updatedPecas = pecas.reduce((resultados, peca) => {
+      const pecasAtualizadas = pecas.reduce((resultados, peca) => {
         if (mesmaPosicao(peca.posicao, pecaJogada.posicao)) {
           peca = pecaJogada;
         }
@@ -282,11 +283,11 @@ export default function TabuleiroTeste() {
         return resultados;
       }, [] as Peca[]);
 
-      if (!updatedPecas.find((p) => p.posicao === pecaJogada.posicao)) {
-        updatedPecas.push(pecaJogada);
+      if (!pecasAtualizadas.find((p) => p.posicao === pecaJogada.posicao)) {
+        pecasAtualizadas.push(pecaJogada);
       }
 
-      setPecas(updatedPecas);
+      setPecas(pecasAtualizadas);
       setNumeroJogada(numeroJogada + 1);
     } else {
       proximoTeste();
@@ -314,7 +315,7 @@ export default function TabuleiroTeste() {
     return rei ? true : false;
   }
 
-  function checaReiEmPerigo(pecas: Peca[], time: TipoTime): boolean {
+  function checaSeReiEmPerigo(pecas: Peca[], time: TipoTime): boolean {
     let pecasPerigosas = [];
 
     const rei = pecas.find(
@@ -342,7 +343,7 @@ export default function TabuleiroTeste() {
       return;
     }
 
-    const updatedPecas = pecas.reduce((resultados, peca) => {
+    const pecasAtualizadas = pecas.reduce((resultados, peca) => {
       if (mesmaPosicao(peca.posicao, promocaoPeao.posicao)) {
         peca.tipo = tipoPeca;
         const tipoTime = (peca.time === TipoTime.JOGADOR) ? "branco" : "preto";
@@ -371,7 +372,7 @@ export default function TabuleiroTeste() {
       return resultados;
     }, [] as Peca[])
 
-    setPecas(updatedPecas);
+    setPecas(pecasAtualizadas);
 
     modalRef.current?.classList.add("hidden");
   }
@@ -381,7 +382,9 @@ export default function TabuleiroTeste() {
   }
 
   function proximoTeste() {
-    setPontuacao(pontuacao + 100 / tentativas);
+    const sub = dicaUtilizada ? ((100/tentativas)*0.25) : 0;
+    const novaPontuacao = pontuacao + ((100/tentativas) - sub);
+    setPontuacao(novaPontuacao);
     if (numeroTeste < 3) {
       setNumeroTeste(numeroTeste + 1);
       setPecas(testeTabuleiroState.teste[numeroTeste]);
@@ -403,10 +406,12 @@ export default function TabuleiroTeste() {
 
   function mostrarDica() {
     dicaRef.current?.classList.remove("hidden");
+    setDicaUtilizada(true);
   }
 
   function escondeDica() {
     dicaRef.current?.classList.add("hidden");
+    setDicaUtilizada(false);
   }
 
   let tabuleiro = [];

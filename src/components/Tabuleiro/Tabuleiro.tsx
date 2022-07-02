@@ -21,8 +21,6 @@ export default function Tabuleiro() {
   const [posicaoOrigem, setPosicaoOrigem] = useState<Posicao>({ x: -1, y: -1 });
   const [pecas, setPecas] = useState<Peca[]>(tabuleiroInicialState);
   const [vezJogador, setVezJogador] = useState<TipoTime>(1);
-  // const [check, setCheck] = useState<boolean>(false);
-  // const [checkmate, setCheckmate] = useState<boolean>(false);
   const tabuleiroRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const arbitro = new Arbitro();
@@ -119,7 +117,7 @@ export default function Tabuleiro() {
         const direcaoPeao = pecaAtual.time === TipoTime.JOGADOR ? 1 : -1;
 
         if (enPassant) {
-          const updatedPecas = pecas.reduce((resultados, peca) => {
+          const pecasAtualizadas = pecas.reduce((resultados, peca) => {
             if (mesmaPosicao(peca.posicao, posicaoOrigem)) {
               peca.enPassant = false;
               peca.posicao.x = x;
@@ -137,11 +135,11 @@ export default function Tabuleiro() {
             return resultados;
           }, [] as Peca[]);
 
-          setPecas(updatedPecas);
+          setPecas(pecasAtualizadas);
         } else if (movimentoValido) {
           // Atualiza a posição da peça
           // Se uma peça for atacada, ela é removida
-          const updatedPecas = pecas.reduce((resultados, peca) => {
+          const pecasAtualizadas = pecas.reduce((resultados, peca) => {
             if (mesmaPosicao(peca.posicao, posicaoOrigem)) {
               // Movimento especial
               peca.enPassant =
@@ -168,16 +166,16 @@ export default function Tabuleiro() {
             return resultados;
           }, [] as Peca[]);
 
-          const reiEmPerigo = checaReiEmPerigo(updatedPecas, vezJogador);
+          const reiEmPerigo = checaSeReiEmPerigo(pecasAtualizadas, vezJogador);
 
           if (!reiEmPerigo) {
             console.log('Trocando a vez do jogador');
             // Trocando a vez do jogador
             const vez = (vezJogador ? 0 : 1);
             setVezJogador(vez);
-            setPecas(updatedPecas);
-            const isCheck = checaReiEmPerigo(updatedPecas, vez);
-            const isCheckmate = (isCheck && !existeMovimentoParaProtegerORei(updatedPecas, vez))
+            setPecas(pecasAtualizadas);
+            const isCheck = checaSeReiEmPerigo(pecasAtualizadas, vez);
+            const isCheckmate = (isCheck && !existeMovimentoParaProtegerORei(pecasAtualizadas, vez))
             if (isCheckmate) {
               // setCheckmate(true);
               alert('Checkmate!');
@@ -228,7 +226,7 @@ export default function Tabuleiro() {
     return rei ? true : false;
   }
 
-  function checaReiEmPerigo(pecas: Peca[], time: TipoTime): boolean {
+  function checaSeReiEmPerigo(pecas: Peca[], time: TipoTime): boolean {
     let pecasPerigosas = [];
 
     const rei = pecas.find(
@@ -253,7 +251,7 @@ export default function Tabuleiro() {
       return;
     }
 
-    const updatedPecas = pecas.reduce((resultados, peca) => {
+    const pecasAtualizadas = pecas.reduce((resultados, peca) => {
       if (mesmaPosicao(peca.posicao, promocaoPeao.posicao)) {
         peca.tipo = tipoPeca;
         const tipoTime = (peca.time === TipoTime.JOGADOR) ? "branco" : "preto";
@@ -282,7 +280,7 @@ export default function Tabuleiro() {
       return resultados;
     }, [] as Peca[])
 
-    setPecas(updatedPecas);
+    setPecas(pecasAtualizadas);
 
     modalRef.current?.classList.add("hidden");
   }
