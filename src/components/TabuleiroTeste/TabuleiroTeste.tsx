@@ -27,8 +27,6 @@ export default function TabuleiroTeste() {
   const [pontuacao, setPontuacao] = useState<number>(0);
   const [numeroJogada, setNumeroJogada] = useState<number>(1);
   const [dicaUtilizada, setDicaUtilizada] = useState<boolean>(false);
-  // const [check, setCheck] = useState<boolean>(false);
-  // const [checkmate, setCheckmate] = useState<boolean>(false);
   const tabuleiroRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const dicaRef = useRef<HTMLDivElement>(null);
@@ -187,10 +185,8 @@ export default function TabuleiroTeste() {
               const isCheck = checaSeReiEmPerigo(pecasAtualizadas, vez);
               const isCheckmate = (isCheck && !existeMovimentoParaProtegerORei(pecasAtualizadas, vez))
               if (isCheckmate) {
-                // setCheckmate(true);
                 alert('Checkmate!');
               } else if (isCheck) {
-                // setCheck(true);
                 alertRef.current?.classList.remove('hidden');
                 setTimeout(() => alertRef.current?.classList.add('hidden'), 2000);
               }
