@@ -59,13 +59,15 @@
   margin-bottom: 10px;
   font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
-  height: 25px;
+  font-size: larger;
+  height: 35px;
 }
 
 .teste-menu-buttons text {
   font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
   color: aliceblue;
+  font-size: x-large;
 }
 
 .teste-menu-buttons button:hover {
@@ -88,6 +90,7 @@
   font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
   color: aliceblue;
+  font-size: x-large;
 }
 
 .dicas button {
@@ -96,7 +99,8 @@
   margin-bottom: 10px;
   font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
-  height: 25px;
+  font-size: larger;
+  height: 35px;
 }
 
 .dicas button:hover {

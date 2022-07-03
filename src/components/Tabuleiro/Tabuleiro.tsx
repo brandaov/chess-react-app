@@ -192,8 +192,6 @@ export default function Tabuleiro() {
             pecaAtiva.style.removeProperty("top");
             pecaAtiva.style.removeProperty("left");
           }
-          // console.log('Check: ', check);
-          // console.log('Checkmate: ', checkmate);
 
         } else {
           // reseta a posição da peça

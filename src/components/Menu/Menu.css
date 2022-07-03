@@ -52,7 +52,8 @@
   margin-bottom: 10px;
   font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
-  height: 25px;
+  height: 30px;
+  font-size: larger;
 }
 
 .menu-buttons button:hover {
@@ -67,7 +68,7 @@
 }
 
 .title-header text {
-  color: antiquewhite;
+  color: aliceblue;
   font-size: 60px;
 }
 
